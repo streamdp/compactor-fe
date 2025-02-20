@@ -15,7 +15,7 @@ or use simple compose file, such like that one:
 ```shell
 version: "3.5"
 services:
-  ip-info-fe:
+  compactor-fe:
     image: streamdp/compactor-fe:v0.0.1
     container_name: compactor-fe
     ports:
