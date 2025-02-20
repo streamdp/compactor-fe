@@ -7,12 +7,10 @@ function copy() {
     );
 }
 
-function isValidUrl(string) {
-    let url;
+function isValidUrl(rawUrl) {
     try {
-        url = new URL(string);
-    } catch (_) {
-        return false;
-    }
-    return url.protocol === "http:" || url.protocol === "https:";
+        let url = new URL(rawUrl);
+        return url.protocol === "http:" || url.protocol === "https:";
+    } catch (_){}
+    return false;
 }

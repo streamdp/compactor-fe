@@ -26,17 +26,24 @@
         </template>
 
         <div class="top-center-short-url">
-            <form id="compactor-form" hx-get="/short" hx-target="#search-result" nunjucks-template="short-template">
+            <form id="compactor-form"
+                  hx-get="/short"
+                  hx-target="#search-result"
+                  nunjucks-template="short-template"
+                  hx-on::before-request="document.querySelector('#search-result').innerHTML=''"
+            >
                 <input type="reset" value="↺" alt="Clear the search form">
                 <input id="url-input" type="text" name="url" placeholder="https://example.com" onchange="this.setCustomValidity('')"
                        hx-on:htmx:validation:validate="
                         if (!isValidUrl(this.value)) {
                             this.setCustomValidity('Please enter the correct url (with schema).')
                             htmx.find('#compactor-form').reportValidity()
-                        }">
+                        }"
+                >
                 <button type="submit">Get short url</button>
             </form>
             <div id="search-result"></div>
+            <div id="error" class="error"></div>
         </div>
     </main>
 
@@ -61,6 +68,7 @@
         <script src="js/htmx.min.js"></script>
         <script src="js/client-side-templates.js"></script>
         <script src="js/nunjucks.min.js"></script>
+        <script src="js/error.js"></script>
         <script src="js/url.js"></script>
     </footer>
 </body>
