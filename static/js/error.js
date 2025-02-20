@@ -1,21 +1,29 @@
 // https://stackoverflow.com/a/78978176
 
 htmx.on("htmx:responseError", function (evt) {
+    const error = document.getElementById('error')
+    const input = document.getElementById('url-input')
     const xhr = evt.detail.xhr;
     const response = JSON.parse(xhr.responseText)
-    document.getElementById('error').innerHTML = `${xhr.statusText} (${xhr.status}): ${response.error}`
 
-    const input = document.getElementById('url-input')
+    error.innerHTML = `${xhr.statusText} (${xhr.status}): ${response.error}`
+    error.hidden=false
     input.setCustomValidity(`${response.error}`)
     input.reportValidity()
 })
 
 htmx.on("htmx:sendError", function (evt) {
     const requestConfig = evt.detail.requestConfig;
-    document.getElementById('error').innerHTML = `Network error on <b>${requestConfig.verb} ${requestConfig.path}</b>`
+    const error = document.getElementById('error')
+
+    error.innerHTML = `Network error on <b>${requestConfig.verb} ${requestConfig.path}</b>`
 })
 
 htmx.on("htmx:beforeSend", function () {
-    document.getElementById('error').innerHTML = ""
-    document.getElementById('url-input').setCustomValidity('')
+    const error = document.getElementById('error')
+    const input = document.getElementById('url-input')
+
+    error.innerHTML = ""
+    error.hidden=true
+    input.setCustomValidity('')
 })
