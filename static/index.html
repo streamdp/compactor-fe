@@ -16,13 +16,13 @@
         <div class="top-center"><h3>Simple URL shortener</h3></div>
     </header>
 
-    <main hx-ext="client-side-templates" class="container" >
+    <main hx-ext="client-side-templates" class="container">
         <template id="short-template">
             <div class="short-url">
                 <a id="link" href="/{{content.short}}"><span id="origin"></span>/{{content.short}}</a>
             </div>
             <button type="button" onclick="copy()">Copy</button>
-            <script>document.getElementById("origin").textContent=origin</script>
+            <script>getOrigin('origin')</script>
         </template>
 
         <div class="top-center-short-url">
@@ -30,15 +30,13 @@
                   hx-get="/short"
                   hx-target="#search-result"
                   nunjucks-template="short-template"
-                  hx-on::before-request="document.querySelector('#search-result').innerHTML=''"
+                  hx-on::before-request="clear('search-result')"
             >
                 <input type="reset" value="↺" alt="Clear the search form">
-                <input id="url-input" type="text" name="url" placeholder="https://example.com" onchange="this.setCustomValidity('')"
-                       hx-on:htmx:validation:validate="
-                        if (!isValidUrl(this.value)) {
-                            this.setCustomValidity('Please enter the correct url (with schema).')
-                            htmx.find('#compactor-form').reportValidity()
-                        }"
+                <input id="url-input" type="text" name="url"
+                       placeholder="https://example.com"
+                       oninput="this.setCustomValidity('')"
+                       hx-on:htmx:validation:validate="validate(this)"
                 >
                 <button type="submit">Get short url</button>
             </form>
@@ -55,16 +53,9 @@
 
     <footer class="container">
         <div class="item-bottom-center">&copy;
-            <span id="copyright">
-                <script>
-                  document.getElementById('copyright').appendChild(
-                      document.createTextNode(new Date().getFullYear())
-                  )
-                </script>
-            </span>
+            <span id="copyright"><script>document.write(new Date().getFullYear())</script></span>
             You can see the source code on my <a href="https://github.com/streamdp" target="_blank">GitHub</a>
         </div>
-
         <script src="js/htmx.min.js"></script>
         <script src="js/client-side-templates.js"></script>
         <script src="js/nunjucks.min.js"></script>
