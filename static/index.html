@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Compactor - Simple URL shortener</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="icon" href="/icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="icon.png">
+</head>
+
+<body>
+    <header class="container">
+        <div class="top-center"><h3>Simple URL shortener</h3></div>
+    </header>
+
+    <main hx-ext="client-side-templates" class="container" >
+        <template id="short-template">
+            <div class="short-url">
+                <a id="link" href="/{{content.short}}"><span id="origin"></span>/{{content.short}}</a>
+            </div>
+            <button type="button" onclick="copy()">Copy</button>
+            <script>document.getElementById("origin").textContent=origin</script>
+        </template>
+
+        <div class="top-center-short-url">
+            <form id="compactor-form" hx-get="/short" hx-target="#search-result" nunjucks-template="short-template">
+                <input type="reset" value="↺" alt="Clear the search form">
+                <input id="url-input" type="text" name="url" placeholder="https://example.com" onchange="this.setCustomValidity('')"
+                       hx-on:htmx:validation:validate="
+                        if (!isValidUrl(this.value)) {
+                            this.setCustomValidity('Please enter the correct url (with schema).')
+                            htmx.find('#compactor-form').reportValidity()
+                        }">
+                <button form="compactor-form" type="submit">Get short url</button>
+            </form>
+            <div id="search-result"></div>
+        </div>
+    </main>
+
+    <div class="top-center-referral-badge">
+        <a href="https://www.digitalocean.com/?refcode=253bf19488bd&utm_campaign=Referral_Invite&utm_medium=Referral_Program&utm_source=badge">
+            <img class="mix-blend-multiply" src="https://web-platforms.sfo2.cdn.digitaloceanspaces.com/WWW/Badge%202.svg" alt="DigitalOcean Referral Badge" />
+        </a>
+    </div>
+
+    <footer class="container">
+        <div class="item-bottom-center">&copy;
+            <span id="copyright">
+                <script>
+                  document.getElementById('copyright').appendChild(
+                      document.createTextNode(new Date().getFullYear())
+                  )
+                </script>
+            </span>
+            You can see the source code on my <a href="https://github.com/streamdp" target="_blank">GitHub</a>
+        </div>
+
+        <script src="js/htmx.min.js"></script>
+        <script src="js/client-side-templates.js"></script>
+        <script src="js/nunjucks.min.js"></script>
+        <script src="js/url.js"></script>
+    </footer>
+</body>
+</html>
