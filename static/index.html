@@ -19,10 +19,9 @@
     <main hx-ext="client-side-templates" class="container">
         <template id="short-template">
             <div class="short-url">
-                <a id="link" href="/{{content.short}}"><span id="origin"></span>/{{content.short}}</a>
+                <a id="link" href="/{{content.short}}"><span id="origin"><script>getOrigin('origin')</script></span>/{{content.short}}</a>
             </div>
             <button type="button" onclick="copy()">Copy</button>
-            <script>getOrigin('origin')</script>
         </template>
 
         <div class="top-center-short-url">
