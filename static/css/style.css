@@ -160,21 +160,11 @@ a {
     background-color: moccasin;
     border: solid orange;
   }
-  .top-center-referral-badge {
-    height: 10%;
-    width: 25%;
-    min-width: 536px;
-    margin: 10px auto;
-    padding: 10px;
-    text-align: center;
-    background-color: moccasin;
-    border: solid orange;
-  }
   .item-bottom-center {
     height: 10%;
     width: 25%;
     min-width: 536px;
-    margin: auto;
+    margin: 10px auto;
     padding: 10px;
     text-align: center;
     background-color: burlywood;
@@ -205,19 +195,10 @@ a {
     background-color: moccasin;
     border: solid orange;
   }
-  .top-center-referral-badge {
-    height: 10%;
-    width: 90%;
-    margin: 10px auto;
-    padding: 10px;
-    text-align: center;
-    background-color: moccasin;
-    border: solid orange;
-  }
   .item-bottom-center {
     height: 10%;
     width: 90%;
-    margin: auto;
+    margin: 10px auto;
     padding: 10px;
     text-align: center;
     background-color: burlywood;
