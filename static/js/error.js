@@ -1,5 +1,3 @@
-// https://stackoverflow.com/a/78978176
-
 htmx.on("htmx:responseError", function (evt) {
     const error = document.getElementById('error')
     const input = document.getElementById('url-input')
