@@ -13,7 +13,16 @@
 
 <body>
     <header class="container">
-        <div class="top-center"><h3>Simple URL shortener</h3></div>
+        <div class="top-center" hx-ext="client-side-templates">
+            <template id="version-template">{% if content.version %}&nbsp;{{content.version}}{% endif %}</template>
+
+            <div hx-get="/app/version"
+                 hx-trigger="load"
+                 hx-target="#app-version"
+                 nunjucks-template="version-template"
+            ></div>
+            <h3>Simple URL shortener<span id="app-version"></span></h3>
+        </div>
     </header>
 
     <main hx-ext="client-side-templates" class="container">
