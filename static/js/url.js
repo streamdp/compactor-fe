@@ -27,3 +27,19 @@ function clear(id) {
 function getOrigin(id) {
     document.getElementById(id).textContent=window.location.origin
 }
+
+// Web Share Function
+function shareLink(path) {
+    const fullUrl = window.location.origin + path;
+    if (navigator.share) {
+        navigator.share({
+            title: 'Shortened Link',
+            text: 'Check out this shortened link:',
+            url: fullUrl,
+        }).catch(console.error);
+    } else {
+        // Fallback: Copy to clipboard if Share API isn't supported
+        copy();
+        alert("Share not supported. Link copied to clipboard!");
+    }
+}
