@@ -28,7 +28,7 @@
 
     <header class="w-full max-w-lg text-center mb-8" hx-ext="client-side-templates">
         <template id="version-template">
-            {% if content.version %}<span class="text-xs font-mono bg-indigo-100 text-indigo-700 dark:bg-indigo-500/20 dark:text-indigo-300 px-2 py-1 rounded-full ml-2">v{{content.version}}</span>{% endif %}
+            {% if content.version %}<span class="text-xs font-mono bg-indigo-100 text-indigo-700 dark:bg-indigo-500/20 dark:text-indigo-300 px-2 py-1 rounded-full ml-2">{{content.version}}</span>{% endif %}
         </template>
         <div hx-get="/app/version" hx-trigger="load" hx-target="#app-version" nunjucks-template="version-template"></div>
         <h1 class="text-5xl font-black tracking-tight mb-2">Compactor<span id="app-version"></span></h1>
