@@ -7,7 +7,6 @@
     <title>Compactor - Simple URL shortener</title>
 
     <link href="css/style.css" rel="stylesheet">
-    <script src="js/theme.js"></script>
 
     <link rel="icon" href="/favicon.ico" sizes="any">
     <link rel="icon" href="/icon.svg" type="image/svg+xml">
@@ -56,7 +55,12 @@
               class="space-y-5"
         >
             <div class="relative group">
-                <input id="url-input" type="text" name="url" placeholder="Paste link here..." oninput="this.setCustomValidity('')" hx-on:htmx:validation:validate="validate(this)"
+                <input id="url-input"
+                       type="text"
+                       name="url"
+                       placeholder="Paste link here..."
+                       oninput="this.setCustomValidity('')"
+                       hx-on:htmx:validation:validate="validate(this)"
                        class="w-full bg-slate-100 dark:bg-slate-950 border-2 border-transparent focus:border-indigo-500 text-slate-900 dark:text-white rounded-2xl px-6 py-5 outline-none transition-all pr-14"
                 >
                 <button type="reset" class="absolute right-5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-indigo-500">
