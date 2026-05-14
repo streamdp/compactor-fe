@@ -1,10 +1,3 @@
-function copy() {
-    const link = document.getElementById("link");
-    navigator.clipboard.writeText(link.textContent).then(
-        _ => alert("Copied link: " + link.textContent)
-    );
-}
-
 function isValidUrl(rawUrl) {
     try {
         let url = new URL(rawUrl);
@@ -28,9 +21,36 @@ function getOrigin(id) {
     document.getElementById(id).textContent=window.location.origin
 }
 
-// Web Share Function
+// Helper to show messages in the UI instead of alerts
+function showStatus(text, type = 'success') {
+    const msgEl = document.getElementById("status-message");
+    if (!msgEl) return;
+
+    msgEl.textContent = text;
+    msgEl.classList.remove("hidden", "text-emerald-500", "text-amber-500");
+
+    // Set color based on type
+    const colorClass = type === 'success' ? "text-emerald-500" : "text-amber-500";
+    msgEl.classList.add(colorClass);
+
+    // Hide after 3 seconds
+    setTimeout(() => {
+        msgEl.classList.add("hidden");
+    }, 5000);
+}
+
+function copy(silent = false) {
+    const link = document.getElementById("link");
+    const textToCopy = link.textContent.replace(/\s+/g, '').trim();
+
+    navigator.clipboard.writeText(textToCopy).then(() => {
+        if (!silent) showStatus("✓ Link copied to clipboard", "success");
+    });
+}
+
 function shareLink(path) {
     const fullUrl = window.location.origin + path;
+
     if (navigator.share) {
         navigator.share({
             title: 'Shortened Link',
@@ -38,8 +58,8 @@ function shareLink(path) {
             url: fullUrl,
         }).catch(console.error);
     } else {
-        // Fallback: Copy to clipboard if Share API isn't supported
-        copy();
-        alert("Share not supported. Link copied to clipboard!");
+        // Fallback behavior
+        copy(true); // copy the link quietly
+        showStatus("⚠ Share not supported - Link copied instead", "warning");
     }
 }
